@@ -8,7 +8,7 @@ export class ItemEntity extends BaseEntity {
 
   public quantity: number;
 
-  public sellerId: string;
+  public sellerId: number;
 
   constructor(data: Partial<ItemEntity>) {
     super(data);

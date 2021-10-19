@@ -1,7 +1,7 @@
 import faker from 'faker';
 
 export abstract class BaseEntity {
-  public id: string;
+  public id: number;
 
   constructor(data: Partial<BaseEntity>) {
     this.id = data?.id;
