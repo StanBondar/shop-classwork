@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getItem, getItemById } from './get';
+import { getItem, getItemById, getSellerByItemId } from './get';
 import { postItem } from './post';
 import { patchItem } from './patch';
 import { deleteItem } from './delete';
@@ -14,4 +14,7 @@ router.delete('/', deleteItem);
 router.put('/', putItem);
 
 router.get('/:id', getItemById);
+
+router.get('/:id/seller', getSellerByItemId);
+
 export default router;
