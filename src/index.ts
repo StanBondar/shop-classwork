@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import { config } from 'dotenv';
 import { registerRouters } from './api';
 import { read } from './data/mocks';
+import 'reflect-metadata';
 
 config();
 
