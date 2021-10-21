@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { UserEntity } from './entities/user.entity';
+import { UserEntity } from './db/entities/user.entity';
 
 export type RequestData<
   T = { [key: string]: string },
@@ -10,10 +10,6 @@ export type RequestData<
   body: T1;
   params: T;
 };
-
-// type bb = Pick<av,keyof av>
-
-// export type getType<T
 
 export type Aa<T, T1 extends 'query' | 'body' | 'params'> = T1 extends 'query'
   ? { query: T }

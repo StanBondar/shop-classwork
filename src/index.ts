@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import { config } from 'dotenv';
 import { registerRouters } from './api';
-import { read } from './data/mocks';
 import 'reflect-metadata';
+import { createConnection } from 'typeorm';
 
 config();
 
@@ -17,6 +17,6 @@ app.get('/', async (req: Request, res: Response) => {
   res.send('Im alive!');
 });
 
-read().then(() =>
+createConnection().then(() =>
   app.listen(port, () => console.log(`Started on port ${port}`))
 );
