@@ -1,18 +1,21 @@
 import { assign } from 'lodash';
+import { Column, ManyToOne } from 'typeorm';
 import { PurchaseStatusEnum } from '../enums/purchase-status.enum';
-import { BaseEntity } from './base.entity';
+import { Base } from './base.entity';
+import { ItemEntity } from './item.entity';
+import { UserEntity } from './user.entity';
 
-export class PurchaseEntity extends BaseEntity {
-  public customerId: string;
-
-  public itemId: string;
-
+export class PurchaseEntity extends Base {
+  @Column({
+    type: 'enum',
+    enum: PurchaseStatusEnum,
+    default: PurchaseStatusEnum.PENDING,
+  })
   public status: PurchaseStatusEnum;
 
-  constructor(data: Partial<PurchaseEntity>) {
-    super(data);
+  @ManyToOne(() => ItemEntity)
+  public item: ItemEntity;
 
-    assign(this, data);
-    this.status = PurchaseStatusEnum.PENDING;
-  }
+  @ManyToOne(() => UserEntity)
+  public customer: UserEntity;
 }
