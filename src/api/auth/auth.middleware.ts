@@ -1,5 +1,5 @@
 import { UserEntity } from '../../db/entities/user.entity';
-import AuthService from '../../services/auth.service';
+import JwtService from '../../services/auth.service';
 import { Response } from 'express';
 import { IRequest } from '../../types';
 import { UserRoleEnum } from '../../enums/user-role.enum';
@@ -8,7 +8,7 @@ export const authMiddleware = async (req: IRequest, res: Response, next) => {
   const token = (req.headers.authorization || '').split(' ')[1];
 
   try {
-    const { id } = AuthService.decode(token);
+    const { id } = JwtService.decode(token);
     const user = await UserEntity.findOne(id);
     req.user = user;
     next();

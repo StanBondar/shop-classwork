@@ -1,10 +1,9 @@
 import { config } from 'dotenv';
 import { sign, verify } from 'jsonwebtoken';
-import { UserEntity } from '../db/entities/user.entity';
 import { JwtPayload } from '../types';
 
 config();
-class AuthService {
+class JwtService {
   private readonly secretKey;
 
   constructor() {
@@ -20,4 +19,4 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+export default new JwtService();
