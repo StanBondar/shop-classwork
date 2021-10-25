@@ -1,10 +1,11 @@
+import { createConfig } from './config/index';
 import express, { Request, Response } from 'express';
 import { config } from 'dotenv';
 import { registerRouters } from './api';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 
-config();
+createConfig();
 
 const port = process.env.APP_PORT || 3030;
 

@@ -1,5 +1,5 @@
-import { Column, Entity, OneToMany } from 'typeorm';
-
+import { BeforeInsert, Column, Entity, OneToMany } from 'typeorm';
+import crypto from 'crypto';
 import { UserRoleEnum } from '../../enums/user-role.enum';
 import { Base } from './base.entity';
 import { ItemEntity } from './item.entity';
@@ -20,7 +20,7 @@ export class UserEntity extends Base {
   })
   public role: UserRoleEnum;
 
-  @Column()
+  @Column({ select: false })
   public password: string;
 
   @Column({
@@ -34,4 +34,24 @@ export class UserEntity extends Base {
 
   @OneToMany(() => PurchaseEntity, (purchase) => purchase.customer)
   public purchases: PurchaseEntity[];
+
+  @BeforeInsert()
+  encryptPassword() {
+    this.password = this.getPasswordHash(this.password);
+  }
+
+  verifyPassword(password: string) {
+    const passwordHash = this.getPasswordHash(password);
+
+    return this.password === passwordHash;
+  }
+
+  getPasswordHash(password: string) {
+    return crypto
+      .createHash('sha256')
+      .update(password, 'binary')
+      .digest('base64');
+  }
 }
+
+// console.log(a);
