@@ -1,7 +1,6 @@
-import { authMiddleware } from './auth.middleware';
 import { Router } from 'express';
-import { registration, login } from './post';
-import { IRequest } from '../../types';
+
+import { login, registration } from './post';
 
 const router = Router();
 

@@ -1,23 +1,13 @@
-import { createConfig } from './config/index';
-import express, { Request, Response } from 'express';
-import { config } from 'dotenv';
-import { registerRouters } from './api';
+import { EnvConfig } from './config/index';
 import 'reflect-metadata';
-import { createConnection } from 'typeorm';
+import { init } from './helpers/startup.helper';
 
-createConfig();
+const main = async () => {
+  const app = await init();
 
-const port = process.env.APP_PORT || 3030;
+  app.listen(EnvConfig.PORT, () =>
+    console.log(`Started on port ${EnvConfig.PORT}`)
+  );
+};
 
-const app = express();
-registerRouters(app);
-
-app.get('/', async (req: Request, res: Response) => {
-  console.log(req.url);
-
-  res.send('Im alive!');
-});
-
-createConnection().then(() =>
-  app.listen(port, () => console.log(`Started on port ${port}`))
-);
+main();
