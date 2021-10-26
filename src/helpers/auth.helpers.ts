@@ -1,8 +1,8 @@
-import { UserEntity } from '../db/entities/user.entity';
-import JwtService from '../services/jwt.service';
 import { Response } from 'express';
-import { IRequest } from '../types';
+
 import { UserRoleEnum } from '../enums/user-role.enum';
+import JwtService from '../services/jwt.service';
+import { IRequest } from '../types';
 import { wrapperMiddleware } from './wrapper.helper';
 
 export const authMiddleware = wrapperMiddleware(

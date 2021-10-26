@@ -1,8 +1,8 @@
-import { EnvConfig } from './../config/index';
-import { createConfig } from '../config';
 import express from 'express';
-import { registerRouters } from '../api';
 import { createConnection } from 'typeorm';
+
+import { registerRouters } from '../api';
+import { createConfig } from '../config';
 
 export const init = async () => {
   createConfig();

@@ -53,5 +53,3 @@ export class UserEntity extends Base {
       .digest('base64');
   }
 }
-
-// console.log(a);
