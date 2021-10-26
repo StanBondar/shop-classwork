@@ -30,7 +30,7 @@ export class UserEntity extends Base {
   public balance: number;
 
   @OneToMany(() => ItemEntity, (item) => item.seller)
-  public items: ItemEntity[];
+  public items: Promise<ItemEntity[]>;
 
   @OneToMany(() => PurchaseEntity, (purchase) => purchase.customer)
   public purchases: PurchaseEntity[];

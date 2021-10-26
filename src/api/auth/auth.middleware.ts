@@ -1,5 +1,5 @@
 import { UserEntity } from '../../db/entities/user.entity';
-import JwtService from '../../services/auth.service';
+import JwtService from '../../services/jwt.service';
 import { Response } from 'express';
 import { IRequest } from '../../types';
 import { UserRoleEnum } from '../../enums/user-role.enum';
