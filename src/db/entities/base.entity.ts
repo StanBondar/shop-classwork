@@ -19,3 +19,5 @@ export abstract class Base extends BaseEntity {
   @DeleteDateColumn()
   public deleteDate?: Date;
 }
+
+type a = Base;

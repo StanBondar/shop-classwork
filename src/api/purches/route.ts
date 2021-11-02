@@ -1,16 +1,18 @@
 import { Router } from 'express';
-import * as sad from './get';
-import { postPurches } from './post';
+import { getPurches } from './get';
 import { putPurches } from './put';
+import { postPurchases } from './post';
 import { deletePurches } from './delete';
-import { patchPurches } from './patch';
+import { patchPurchases } from './patch';
+import { PurchaseEntity } from '../../db/entities/purchase.entity';
+import { checkEntityId } from '../../tools/wrapper.helpers';
 
 const router = Router();
 
-router.get('/');
-router.post('/', postPurches);
+router.get('/', getPurches);
+router.post('/', postPurchases);
 router.put('/', putPurches);
 router.delete('/', deletePurches);
-router.patch('/', patchPurches);
+router.patch('/:id', checkEntityId(PurchaseEntity), patchPurchases);
 
 export default router;

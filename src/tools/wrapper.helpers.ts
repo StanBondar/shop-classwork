@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-
+import { BaseEntity } from 'typeorm';
+import { IEntityRequest } from '../types';
 export class HttpError extends Error {
   public statusCode: number;
 
@@ -19,3 +20,28 @@ export function wrapper(func: Function) {
     }
   };
 }
+
+export const checkEntityId = <T extends typeof BaseEntity>(entity: T) => {
+  return async (
+    req: IEntityRequest<BaseEntity>,
+    res: Response,
+    next: Function
+  ) => {
+    const id = req.params.id;
+
+    if (!id) {
+      return res.status(400).send('Invalid item id provided');
+    }
+
+    const findedEntity = await entity.findOne(id);
+
+    if (!findedEntity) {
+      // return new HttpError("Invalid item id provided", 404);
+      // TODO create wrapper for middleware and cover it
+      return res.status(404).send('Invalid item id provided');
+    }
+
+    req.entity = findedEntity;
+    next();
+  };
+};

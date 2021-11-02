@@ -13,6 +13,9 @@ export class ItemEntity extends Base {
   @Column()
   public quantity: number;
 
+  @Column()
+  public sellerId: number;
+
   @ManyToOne(() => UserEntity)
   public seller: UserEntity;
 }
