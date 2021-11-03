@@ -1,6 +1,14 @@
 import { Request, Response } from 'express';
+import { assign } from 'lodash';
 import { BaseEntity } from 'typeorm';
-import { IEntityRequest } from '../types';
+import { PurchaseStatusEnum } from '../enums/purchase-status.enum';
+import { IEntityRequest, IRequest } from '../types';
+import {
+  IsEnum,
+  validate,
+  validateOrReject,
+  ValidationError,
+} from 'class-validator';
 export class HttpError extends Error {
   public statusCode: number;
 
@@ -8,6 +16,12 @@ export class HttpError extends Error {
     super(message);
 
     this.statusCode = statusCode;
+  }
+}
+
+export class HttpValidationError extends HttpError {
+  constructor(public errors: ValidationError[]) {
+    super('Validation error', 400);
   }
 }
 
@@ -45,3 +59,28 @@ export const checkEntityId = <T extends typeof BaseEntity>(entity: T) => {
     next();
   };
 };
+
+export class BaseRequest {
+  constructor(data: BaseRequest) {
+    assign(this, data);
+  }
+}
+
+export class PatchPurchaseRequest extends BaseRequest {
+  @IsEnum([PurchaseStatusEnum.CANCELLED, PurchaseStatusEnum.FULFILLED])
+  status: PurchaseStatusEnum;
+}
+export const validationMiddleware = <T extends typeof BaseRequest>(entity: T) =>
+  wrapper(async (req: IRequest, res: Response, next) => {
+    const body = req.body as unknown as T;
+    const newEntity = new entity(body);
+
+    const wqe = await validate(newEntity);
+
+    console.log(wqe);
+    await validateOrReject(newEntity).catch((errs) => {
+      throw new HttpValidationError(errs);
+    });
+
+    next();
+  });

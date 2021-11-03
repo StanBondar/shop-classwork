@@ -5,14 +5,24 @@ import { postPurchases } from './post';
 import { deletePurches } from './delete';
 import { patchPurchases } from './patch';
 import { PurchaseEntity } from '../../db/entities/purchase.entity';
-import { checkEntityId } from '../../tools/wrapper.helpers';
+import {
+  checkEntityId,
+  PatchPurchaseRequest,
+  validationMiddleware,
+} from '../../tools/wrapper.helpers';
+import { PostPurchaseRequest } from './requests/post-item.request';
 
 const router = Router();
 
 router.get('/', getPurches);
-router.post('/', postPurchases);
+router.post('/', validationMiddleware(PostPurchaseRequest), postPurchases);
 router.put('/', putPurches);
 router.delete('/', deletePurches);
-router.patch('/:id', checkEntityId(PurchaseEntity), patchPurchases);
+router.patch(
+  '/:id',
+  checkEntityId(PurchaseEntity),
+  validationMiddleware(PatchPurchaseRequest),
+  patchPurchases
+);
 
 export default router;
