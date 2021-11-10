@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Base } from './base.entity';
+import { PurchaseEntity } from './purchase.entity';
 import { UserEntity } from './user.entity';
 
 @Entity({ name: 'items' })
@@ -18,4 +19,7 @@ export class ItemEntity extends Base {
 
   @ManyToOne(() => UserEntity)
   public seller: UserEntity;
+
+  @OneToMany(() => PurchaseEntity, purchase => purchase.item)
+  public purchases: Promise<PurchaseEntity[]>;
 }

@@ -6,6 +6,7 @@ import { IRequest } from '../types';
 import itemsRouter from './items';
 import purchasesRouter from './purches/route';
 import { omit } from 'lodash';
+import accountsRouter from './accounts';
 
 export const registerRouters = (app: Express) => {
   app.use(json());
@@ -22,4 +23,5 @@ export const registerRouters = (app: Express) => {
   app.use('/', (err: HttpError, req, res, next) => {
     res.status(err?.statusCode || 400).send(omit(err, 'statusCode'));
   });
+  app.use('/accounts', accountsRouter);
 };
