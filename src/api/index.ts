@@ -21,7 +21,6 @@ export const registerRouters = (app: Express) => {
   app.use('/items', itemsRouter);
   app.use('/accounts', accountsRouter);
 
-
   app.use('/', (err: HttpError, req, res, next) => {
     res.status(err?.statusCode || 400).send(omit(err, 'statusCode'));
   });

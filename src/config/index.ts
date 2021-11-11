@@ -7,5 +7,5 @@ export const EnvConfig: { PORT?: number; SECRET_KEY: string } = {
 export const createConfig = () => {
   config();
   EnvConfig.PORT = Number(process.env.PORT) || 3000;
-  EnvConfig.SECRET_KEY = process.env.SECRET_KEY;
+  EnvConfig.SECRET_KEY = process.env.SECRET_KEY!;
 };
