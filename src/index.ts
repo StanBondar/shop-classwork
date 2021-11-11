@@ -10,7 +10,6 @@ createConfig();
 const port = process.env.APP_PORT || 3030;
 
 const app = express();
-registerRouters(app);
 
 app.get('/', async (req: Request, res: Response) => {
   console.log(req.url);
@@ -18,6 +17,8 @@ app.get('/', async (req: Request, res: Response) => {
   res.send('Im alive!');
 });
 
-createConnection().then(() =>
+registerRouters(app);
+
+// createConnection().then(() =>
   app.listen(port, () => console.log(`Started on port ${port}`))
-);
+// );
