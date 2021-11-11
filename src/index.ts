@@ -7,7 +7,7 @@ import { createConnection } from 'typeorm';
 
 createConfig();
 
-const port = process.env.APP_PORT || 3030;
+const port = process.env.PORT || 3030;
 
 const app = express();
 registerRouters(app);
@@ -18,6 +18,6 @@ app.get('/', async (req: Request, res: Response) => {
   res.send('Im alive!');
 });
 
-createConnection().then(() =>
-  app.listen(port, () => console.log(`Started on port ${port}`))
-);
+// createConnection().then(() =>
+app.listen(port, () => console.log(`Started on port ${port}`));
+// );
