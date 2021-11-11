@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getUserAccount } from './get';
+import { getAccounts } from './get';
 
 import {
   checkEntityId,
@@ -13,7 +13,7 @@ const router = Router();
 
 router.get('/:id',
     checkEntityId(UserEntity),
-    getUserAccount
+    getAccounts
 );
 
 export default router;
