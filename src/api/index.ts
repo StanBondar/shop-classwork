@@ -7,10 +7,26 @@ import itemsRouter from './items';
 import purchasesRouter from './purches/route';
 import { omit } from 'lodash';
 import accountsRouter from './accounts';
+import fileUpload, { UploadedFile } from 'express-fileupload';
+import path from 'path';
 
 export const registerRouters = (app: Express) => {
   app.use(json());
   app.use('/auth', authRouter);
+
+  const filesPath = path.join(__dirname, '../db/files/');
+  app.use(fileUpload());
+  app.post('/upload', async (req, res) => {
+    const file = req.files.test as UploadedFile;
+    await file.mv(filesPath + file.name);
+    return res.send('Success');
+    // return res.download(filesPath + '1.jpg');
+  });
+  app.get('/download/:fileName', async (req, res) => {
+    const file = `${filesPath}${req.params.fileName}`;
+
+    return res.download(file);
+  });
 
   app.use('/', authMiddleware);
   app.use('/whoami', (req: IRequest, res: Response) => {

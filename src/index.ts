@@ -4,6 +4,7 @@ import express, { Request, Response } from 'express';
 
 import { registerRouters } from './api';
 import { createConfig, EnvConfig } from './config';
+import { createConnection } from 'typeorm';
 
 createConfig();
 
@@ -17,8 +18,8 @@ app.get('/', async (req: Request, res: Response) => {
 
 registerRouters(app);
 
-// createConnection().then(() =>
-app.listen(EnvConfig.PORT, () =>
-  console.log(`Started on port ${EnvConfig.PORT}`)
+createConnection().then(() =>
+  app.listen(EnvConfig.PORT, () =>
+    console.log(`Started on port ${EnvConfig.PORT}`)
+  )
 );
-// );
