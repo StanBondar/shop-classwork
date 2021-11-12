@@ -24,5 +24,5 @@ createConnection().then(() =>
   )
 ).catch(err => {
   console.log('Connection error occured');
-  console.log(JSON.stringify(err))
+  console.log(err);
 });
