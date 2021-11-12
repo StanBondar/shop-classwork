@@ -1,5 +1,5 @@
 import { HttpError } from './../tools/wrapper.helpers';
-import { Express, json, Request, Response } from 'express';
+import { Express, json, Response } from 'express';
 import authRouter from './auth';
 import { authMiddleware } from './auth/auth.middleware';
 import { IRequest } from '../types';
@@ -9,6 +9,7 @@ import { omit } from 'lodash';
 import accountsRouter from './accounts';
 import fileUpload, { UploadedFile } from 'express-fileupload';
 import path from 'path';
+import cardsRouter from './cards';
 
 export const registerRouters = (app: Express) => {
   app.use(json());
@@ -41,4 +42,5 @@ export const registerRouters = (app: Express) => {
     res.status(err?.statusCode || 400).send(omit(err, 'statusCode'));
   });
   app.use('/accounts', accountsRouter);
+	app.use('/cards', cardsRouter);
 };
