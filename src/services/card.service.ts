@@ -15,3 +15,36 @@ export const checkBalance = async (card: Card) => {
     throw err;
   }
 }
+
+export const withdrawFromCard = async (card: Card, sum: number) => {
+  const body = {
+    sum
+  };
+  try {
+    const {data} = await cardService.patch('/withdraw', body, {
+      params: {
+        ...card
+      }
+    });
+    return data.balance;
+  }catch(err) {
+    throw err;
+  }
+}
+
+export const depositToCard = async (cardNumber: string, sum: number) => {
+  const body = {
+    sum
+  };
+
+  try {
+    const {data} = await cardService.patch('/deposit', body, {
+      params: {
+        number: cardNumber
+      }
+    })
+    return data.balance;
+  }catch(err) {
+    throw err;
+  }
+}

@@ -23,7 +23,6 @@ export const postCards = wrapper( async (req:IRequest, res:Response) => {
   try {
     await checkBalance(cardData);
   }catch(err) {
-    console.log(err); 
     if(err?.response?.status === 404) {
       throw new HttpError('Invalid card data provided, please check card data or try another one.', 400);
     }
