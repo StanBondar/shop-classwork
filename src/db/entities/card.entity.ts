@@ -1,25 +1,22 @@
-import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { Base } from "./base.entity";
 import { UserEntity } from "./user.entity";
 
 @Entity({name: 'cards'})
 export class CardEntity extends Base {
   @Column()
-  public cardNumber: number;
+  public number: string;
   
   @Column()
-  public expiredDate: string;
+  public expired: string;
   
   @Column()
   public cvv: string;
-  
-  @Column()
-  public cardType: string;
 
   @Column()
   public userId: number;
 
-  @OneToOne(() => UserEntity)
+  @ManyToOne(() => UserEntity)
   @JoinColumn()
   public user: UserEntity;
 }

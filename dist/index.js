@@ -15,5 +15,8 @@ app.get('/', async (req, res) => {
     res.send(`Im alive! ${config_1.EnvConfig.PORT}`);
 });
 (0, api_1.registerRouters)(app);
-(0, typeorm_1.createConnection)().then(() => app.listen(config_1.EnvConfig.PORT, () => console.log(`Started on port ${config_1.EnvConfig.PORT}`)));
+(0, typeorm_1.createConnection)().then(() => app.listen(config_1.EnvConfig.PORT, () => console.log(`Started on port ${config_1.EnvConfig.PORT}`))).catch(err => {
+    console.log('Connection error occured');
+    console.log(err);
+});
 //# sourceMappingURL=index.js.map
