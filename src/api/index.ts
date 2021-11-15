@@ -5,7 +5,7 @@ import { authMiddleware } from './auth/auth.middleware';
 import { IRequest } from '../types';
 import itemsRouter from './items';
 import purchasesRouter from './purches/route';
-import { omit } from 'lodash';
+import { omit, pick } from 'lodash';
 import accountsRouter from './accounts';
 import fileUpload, { UploadedFile } from 'express-fileupload';
 import path from 'path';
@@ -37,10 +37,12 @@ export const registerRouters = (app: Express) => {
   app.use('/purchases', purchasesRouter);
   app.use('/items', itemsRouter);
   app.use('/accounts', accountsRouter);
+  app.use('/accounts', accountsRouter);
+  app.use('/cards', cardsRouter);
 
   app.use('/', (err: HttpError, req, res, next) => {
-    res.status(err?.statusCode || 400).send(omit(err, 'statusCode'));
+    // TODO check why omit returns empty object, even if message field exists in err object;
+    // res.status(err?.statusCode || 400).send(omit(err, 'statusCode'));
+    res.status(err?.statusCode || 400).send(pick(err, 'message'));
   });
-  app.use('/accounts', accountsRouter);
-	app.use('/cards', cardsRouter);
 };
