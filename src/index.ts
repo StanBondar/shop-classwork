@@ -22,4 +22,7 @@ createConnection().then(() =>
   app.listen(EnvConfig.PORT, () =>
     console.log(`Started on port ${EnvConfig.PORT}`)
   )
-);
+).catch(err => {
+  console.log('Connection error occured');
+  console.log(err);
+});

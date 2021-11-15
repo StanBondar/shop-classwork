@@ -4,6 +4,7 @@ import { UserRoleEnum } from '../../enums/user-role.enum';
 import { Base } from './base.entity';
 import { ItemEntity } from './item.entity';
 import { PurchaseEntity } from './purchase.entity';
+import { CardEntity } from './card.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity extends Base {
@@ -35,6 +36,9 @@ export class UserEntity extends Base {
   @OneToMany(() => PurchaseEntity, (purchase) => purchase.customer)
   public purchases: Promise<PurchaseEntity[]>;
 
+  @OneToMany(() => CardEntity, (card) => card.user)
+  public cards: Promise<CardEntity[]>
+
   @BeforeInsert()
   encryptPassword() {
     this.password = this.getPasswordHash(this.password);
@@ -53,5 +57,3 @@ export class UserEntity extends Base {
       .digest('base64');
   }
 }
-
-// console.log(a);

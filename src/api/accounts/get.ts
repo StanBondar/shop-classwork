@@ -35,9 +35,8 @@ import { AccountResponse } from './responses/account.response';
         if(sellersIds.includes(entity.id)) {
           return res.status(200).send(new AccountResponse(entity))
         } else {
-          throw new HttpError('not found', 404)
+          throw new HttpError('not found', 404);
         }
-    
       }
     }
   });
