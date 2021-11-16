@@ -6,16 +6,16 @@ import fs from 'fs';
 const initOrmConfic = async () => {
   config();
 
-  const dir = process.env.ENV === "DEV" ? '' : 'dist';
+  const dir = process.env.ENV === "DEV" ? 'src/' : 'dist/src/';
 
   const opt = {
     type: 'postgres',
     url: process.env.POSTGRES_URL,
     entities: [
-      `${dir}/src/**/entities/*.entity{.ts,.js}`
+      `${dir}**/entities/*.entity{.ts,.js}`
     ],
-    migrations: [`${dir}/src/**/migrations/*{.ts,.js}`],
-    migrationsDir: [`${dir}/src/**/migrations`],
+    migrations: [`${dir}**/migrations/*{.ts,.js}`],
+    migrationsDir: [`${dir}**/migrations`],
     ssl: {
       rejectUnauthorized: false
     }
