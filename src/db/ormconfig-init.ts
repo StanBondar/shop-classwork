@@ -13,10 +13,7 @@ const init = async () => {
     url: process.env.DATABASE_URL,
     entities: [`${dir}/**/entities/*.entity{.ts,.js}`],
     migrations: [`${dir}/**/migrations/*{.ts,.js}`],
-    migrationsDir: `${dir}/**/migrations`,
-    ssl: {
-      rejectUnauthorized: false
-    }
+    migrationsDir: `${dir}/**/migrations`
   };
 
   await promises.writeFile(
