@@ -6,7 +6,7 @@ import fs from 'fs';
 const initOrmConfic = async () => {
   config();
 
-  const dir = process.env.ENV === "DEV" ? 'src/' : 'dist/src/';
+  const dir = process.env.ENV === "DEV" ? 'src/' : 'dist/';
 
   const opt = {
     type: 'postgres',
