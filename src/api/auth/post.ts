@@ -10,7 +10,7 @@ export const registration = wrapper(async (req: Request, res: Response) => {
   const isLoginInUse = !!(await UserEntity.findOne({ login: data.login }));
 
   if (isLoginInUse) {
-    throw new HttpError('Aaaa');
+    throw new HttpError('User already exists');
   }
 
   const user = new UserEntity();
