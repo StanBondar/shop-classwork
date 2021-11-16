@@ -6,9 +6,6 @@ import { IEntityRequest } from '../../types';
 
   export const deleteCards = wrapper(async (req:IEntityRequest<CardEntity>, res:Response) => {
     const card = req.entity;
-    if(!card) {
-      throw new HttpError('Card not found', 404);
-    }
 
     try{
       await CardEntity.remove(card);

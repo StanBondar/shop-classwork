@@ -3,7 +3,7 @@ import { assign, pick } from 'lodash';
 import { CardEntity } from '../../db/entities/card.entity';
 import { checkBalance } from '../../services/card.service';
 import { HttpError, wrapper } from '../../tools/wrapper.helpers';
-import { Card, IRequest } from '../../types';
+import { TCard, IRequest } from '../../types';
 
 export const postCards = wrapper( async (req:IRequest, res:Response) => {
   if(!req?.body) {
@@ -11,7 +11,7 @@ export const postCards = wrapper( async (req:IRequest, res:Response) => {
   }
 
   const requiredCardField = ['number', 'expired', 'cvv'];
-  const cardData: Card = pick(req.body, 'number', 'expired', 'cvv');
+  const cardData: TCard = pick(req.body, 'number', 'expired', 'cvv');
 
   
   requiredCardField.forEach(el => {

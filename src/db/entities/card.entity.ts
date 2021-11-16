@@ -17,6 +17,5 @@ export class CardEntity extends Base {
   public userId: number;
 
   @ManyToOne(() => UserEntity)
-  @JoinColumn()
   public user: UserEntity;
 }

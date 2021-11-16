@@ -1,11 +1,11 @@
 import axios from "axios";
-import { Card } from "../types";
+import { TCard } from "../types";
 
 export const cardService = axios.create({
-  baseURL: 'https://tranquil-meadow-98197.herokuapp.com'
+  baseURL: process.env.CARD_API_URL
 })
 
-export const checkBalance = async (card: Card) => {
+export const checkBalance = async (card: TCard) => {
   try {
     const balance = await cardService.get('/balance', {params: {
       ...card
@@ -16,7 +16,7 @@ export const checkBalance = async (card: Card) => {
   }
 }
 
-export const withdrawFromCard = async (card: Card, sum: number) => {
+export const withdrawFromCard = async (card: TCard, sum: number) => {
   const body = {
     sum
   };

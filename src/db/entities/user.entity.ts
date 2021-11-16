@@ -27,6 +27,7 @@ export class UserEntity extends Base {
   @Column({
     type: 'decimal',
     default: 300,
+    scale: 2
   })
   public balance: number;
 

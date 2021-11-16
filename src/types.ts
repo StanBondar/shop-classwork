@@ -31,7 +31,7 @@ export interface JwtPayload {
   login: string;
 }
 
-export type Card = {
+export type TCard = {
   number: string;
   cvv: string; 
   expired: string;
