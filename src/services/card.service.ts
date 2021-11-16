@@ -1,8 +1,10 @@
 import axios from "axios";
+import { EnvConfig } from "../config";
 import { TCard } from "../types";
 
 export const cardService = axios.create({
-  baseURL: process.env.CARD_API_URL
+  // baseURL: EnvConfig.CARD_API_URL
+  baseURL: 'https://tranquil-meadow-98197.herokuapp.com'
 })
 
 export const checkBalance = async (card: TCard) => {

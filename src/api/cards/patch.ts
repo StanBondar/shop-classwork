@@ -20,7 +20,11 @@ export const depositToAccount = wrapper(async (req:IEntityRequest<CardEntity>, r
     const remainingBalance = await withdrawFromCard(cardData, sum);
     user.balance = +user.balance + +sum;
     await user.save();
-    return res.status(201).send(`${sum} sent from card to your account. New account balance - ${user.balance}. Remaining on card - ${remainingBalance}`)
+    return res.status(201).send({
+      message:`${sum} sent from card to your account. New account balance - ${user.balance}. Remaining on card - ${remainingBalance}`,
+      accountBalance: user.balance,
+      cardBalance: remainingBalance
+    })
   }catch(err) {
     throw new HttpError(err.response.data, err.response.status);
   }
@@ -38,7 +42,12 @@ export const withdrawFromAccount = wrapper(async (req:IEntityRequest<CardEntity>
     const remainingBalance = await depositToCard(card.number, sum);
     user.balance = +user.balance - +sum;
     await user.save();
-    return res.status(201).send(`${sum} sent from your account to your card. Remaining account balance - ${user.balance}. New card balance - ${remainingBalance}`)
+    return res.status(201).send({
+      message: `${sum} sent from your account to your card. Remaining account balance - ${user.balance}. New card balance - ${remainingBalance}`, 
+      accountBalance: user.balance,
+      cardBalance: remainingBalance
+    })
+    // return res.status(201).send(`${sum} sent from your account to your card. Remaining account balance - ${user.balance}. New card balance - ${remainingBalance}`)
   }catch(err) {
     throw new HttpError(err.response.data, err.response.status);
   }

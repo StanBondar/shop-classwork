@@ -1,10 +1,5 @@
 import {
   IsInt,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  Matches,
-  Min,
 } from 'class-validator';
 import { BaseRequest } from '../../../tools/wrapper.helpers';
 

@@ -77,7 +77,7 @@ export const validationMiddleware = <T extends typeof BaseRequest>(entity: T) =>
 
     const wqe = await validate(newEntity);
 
-    console.log(wqe);
+    console.log(`WQE`, wqe);
     await validateOrReject(newEntity).catch((errs) => {
       throw new HttpValidationError(errs);
     });
