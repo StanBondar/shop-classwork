@@ -14,6 +14,9 @@ const init = async () => {
     entities: [`${dir}/**/entities/*.entity{.ts,.js}`],
     migrations: [`${dir}/**/migrations/*{.ts,.js}`],
     migrationsDir: `${dir}/**/migrations`
+    // ssl: {
+    //   rejectUnauthorized: false
+    // }
   };
 
   await promises.writeFile(
