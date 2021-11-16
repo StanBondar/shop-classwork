@@ -1,27 +1,28 @@
-import { config } from "dotenv";
-import { writeFile } from "fs";
-import path from "path";
-import fs from 'fs';
+import { verify } from 'jsonwebtoken';
+import path from 'path';
+import { promises } from 'fs';
+import { config } from 'dotenv';
 
-const initOrmConfic = async () => {
+const init = async () => {
   config();
 
-  const dir = process.env.ENV === "DEV" ? 'src/' : 'dist/';
+  const dir = process.env.ENV === 'DEV' ? 'src' : 'dist/src';
 
   const opt = {
     type: 'postgres',
     url: process.env.POSTGRES_URL,
-    entities: [
-      `${dir}**/entities/*.entity{.ts,.js}`
-    ],
-    migrations: [`${dir}**/migrations/*{.ts,.js}`],
-    migrationsDir: [`${dir}**/migrations`],
+    entities: [`${dir}/**/entities/*.entity{.ts,.js}`],
+    migrations: [`${dir}/**/migrations/*{.ts,.js}`],
+    migrationsDir: `${dir}/**/migrations`,
     ssl: {
       rejectUnauthorized: false
     }
   };
-  console.log(path.join(__dirname, '../../ormconfig.json'));
-  await fs.promises.writeFile(path.join(__dirname, '../../ormconfig.json'), JSON.stringify(opt, null, 4))
-}
 
-initOrmConfic().then(() => console.log('Orm config generated!'))
+  await promises.writeFile(
+    path.join(__dirname, '../../ormconfig.json'),
+    JSON.stringify(opt, null, 4)
+  );
+};
+
+init().then(() => console.log('Ormconfig generated!'));

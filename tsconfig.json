@@ -10,7 +10,8 @@
     "sourceMap": true,
     "outDir": "./dist",
     "types": ["node"],
-    "incremental": true
+    "incremental": true,
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules", "dist"]
 }

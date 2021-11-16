@@ -10,9 +10,12 @@ import accountsRouter from './accounts';
 import fileUpload, { UploadedFile } from 'express-fileupload';
 import path from 'path';
 import cardsRouter from './cards';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../../swag.json';
 
 export const registerRouters = (app: Express) => {
   app.use(json());
+  app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   app.use('/auth', authRouter);
 
   const filesPath = path.join(__dirname, '../db/files/');
