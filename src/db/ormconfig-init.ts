@@ -13,7 +13,9 @@ const init = async () => {
     url: process.env.DATABASE_URL,
     entities: [`${dir}/**/entities/*.entity{.ts,.js}`],
     migrations: [`${dir}/**/migrations/*{.ts,.js}`],
-    migrationsDir: `${dir}/**/migrations`
+    cli: {
+      migrationsDir: `${dir}/db/migrations`
+    }
     // ssl: {
     //   rejectUnauthorized: false
     // }
