@@ -15,7 +15,8 @@ const init = async () => {
     migrations: [`${dir}/**/migrations/*{.ts,.js}`],
     cli: {
       migrationsDir: `${dir}/db/migrations`
-    }
+    },
+    synchronize: true
     // ssl: {
     //   rejectUnauthorized: false
     // }
