@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+ import { Column, Entity, ManyToOne } from 'typeorm';
 import { PurchaseStatusEnum } from '../../enums/purchase-status.enum';
 import { Base } from './base.entity';
 import { ItemEntity } from './item.entity';

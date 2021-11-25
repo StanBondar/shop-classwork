@@ -1,0 +1,5 @@
+
+
+1. Customer makes purchase
+
+2. If there are not chat between customer and user - create chat

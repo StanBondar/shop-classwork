@@ -5,6 +5,8 @@ import { Base } from './base.entity';
 import { ItemEntity } from './item.entity';
 import { PurchaseEntity } from './purchase.entity';
 import { CardEntity } from './card.entity';
+import { ChatEntity } from './chat.entity';
+import { ChatMembersEntity } from './chat-member.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity extends Base {
@@ -39,6 +41,9 @@ export class UserEntity extends Base {
 
   @OneToMany(() => CardEntity, (card) => card.user)
   public cards: Promise<CardEntity[]>
+
+  @OneToMany(() => ChatMembersEntity, chatMember => chatMember.user)
+  public chatMembers: Promise<ChatMembersEntity[]>
 
   @BeforeInsert()
   encryptPassword() {

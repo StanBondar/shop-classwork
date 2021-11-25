@@ -1,8 +1,7 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { PurchaseEntity } from '../../db/entities/purchase.entity';
 import { HttpError, wrapper } from '../../tools/wrapper.helpers';
 import { PurchaseStatusEnum } from '../../enums/purchase-status.enum';
-import { ItemEntity } from '../../db/entities/item.entity';
 import { IEntityRequest } from '../../types';
 
 export const patchPurchases = wrapper(
@@ -26,7 +25,7 @@ export const patchPurchases = wrapper(
     const purchase = req.entity;
 
     if (purchase.customerId !== req.user.id) {
-      throw new HttpError('Go fuck yourself');
+      throw new HttpError('Can not find your purchase', 404);
     }
 
     if (purchase.status === PurchaseStatusEnum.CANCELLED) {

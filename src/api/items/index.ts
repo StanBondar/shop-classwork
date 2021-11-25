@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import { validationMiddleware } from '../../tools/wrapper.helpers';
-import { getItems } from './get';
+import { getItemById, getItems } from './get';
 import { postItems } from './post';
 import { PostItemRequest } from './requests/post-item.request';
 
 const router = Router();
 
-router.post('/', validationMiddleware(PostItemRequest), postItems);
 router.get('/', getItems);
+router.get('/:id', getItemById);
+router.post('/', validationMiddleware(PostItemRequest), postItems);
 
 export default router;

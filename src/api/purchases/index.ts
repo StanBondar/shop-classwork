@@ -1,6 +1,10 @@
+// export * as get from './get';
+// export * as patch from './patch';
+// export * as post from './post';
+// export * as put from './put';
+
 import { Router } from 'express';
 import { getPurches } from './get';
-import { putPurches } from './put';
 import { postPurchases } from './post';
 import { patchPurchases } from './patch';
 import { PurchaseEntity } from '../../db/entities/purchase.entity';
@@ -9,13 +13,12 @@ import {
   PatchPurchaseRequest,
   validationMiddleware,
 } from '../../tools/wrapper.helpers';
-import { PostPurchaseRequest } from './requests/post-item.request';
+import { PostPurchaseRequest } from './requests/post-purchase.request';
 
 const router = Router();
 
 router.get('/', getPurches);
 router.post('/', validationMiddleware(PostPurchaseRequest), postPurchases);
-router.put('/', putPurches);
 router.patch(
   '/:id',
   checkEntityId(PurchaseEntity),

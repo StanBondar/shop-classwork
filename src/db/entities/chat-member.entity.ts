@@ -6,10 +6,10 @@ import { UserEntity } from "./user.entity";
 @Entity({name: 'chatMembers'})
 export class ChatMembersEntity extends Base {
   @Column()
-  public userId: string;
+  public userId: number;
 
   @Column()
-  public chatId: string;
+  public chatId: number;
 
   @ManyToOne(() => ChatEntity)
   public chat: ChatEntity;
@@ -17,3 +17,6 @@ export class ChatMembersEntity extends Base {
   @ManyToOne(() => UserEntity)
   public user: UserEntity;
 }
+
+
+
