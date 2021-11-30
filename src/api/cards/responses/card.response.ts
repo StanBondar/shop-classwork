@@ -7,9 +7,8 @@ export class CardResponse {
 
   constructor(data?: CardEntity) {
     if(data) {
-      // assign(this, pick(data, keys(new CardResponse())))
       this.number = `*${data.number.slice(-4)}`;
       this.id = data.id;
     }
   }
-}
+} 

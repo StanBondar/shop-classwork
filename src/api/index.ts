@@ -48,6 +48,9 @@ export const registerRouters = (app: Express) => {
   app.use('/', (err: HttpError, req, res, next) => {
     // TODO check why omit returns empty object, even if message field exists in err object;
     // res.status(err?.statusCode || 400).send(omit(err, 'statusCode'));
-    res.status(err?.statusCode || 400).send(pick(err, 'message'));
+    // const error = {
+    //   ...
+    // };
+    res.status(err?.statusCode || 400).send(pick(err, 'message', 'errors'));
   });
 };

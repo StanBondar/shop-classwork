@@ -9,10 +9,10 @@ export class MessageEntity extends Base {
   public data: string;
 
   @Column()
-  public senderId: string
+  public senderId: number;
   
   @Column()
-  public chatId: string;
+  public chatId: number;
 
   @ManyToOne(() => ChatEntity)
   public chat: ChatEntity;

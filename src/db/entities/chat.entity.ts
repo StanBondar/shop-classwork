@@ -10,5 +10,5 @@ export class ChatEntity extends Base {
   chatMembers: Promise<ChatMembersEntity []>
 
   @OneToMany(() => MessageEntity, message => message.chat)
-  message: Promise<MessageEntity[]>
+  messages: Promise<MessageEntity[]>
 }
