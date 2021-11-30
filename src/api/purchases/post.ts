@@ -48,6 +48,7 @@ export const postPurchases = wrapper(async (req: IRequest, res: Response) => {
   }));
 
   const { sellerId } = (await purchase.item);
+
   const isChatExist = companions.some(chatMember => {
     if(!chatMember) {
       return false;
@@ -73,8 +74,6 @@ export const postPurchases = wrapper(async (req: IRequest, res: Response) => {
 
   const {chatId} = companions[0];
   return res.status(201).send(`Items has been purchased. You can contact with seller by chat id - ${chatId}`);
-
-  
 });
 
 
