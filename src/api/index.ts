@@ -12,6 +12,7 @@ import path from 'path';
 import cardsRouter from './cards';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../../swag.json';
+import chatsRouter from './chats';
 
 export const registerRouters = (app: Express) => {
   app.use(json());
@@ -42,6 +43,7 @@ export const registerRouters = (app: Express) => {
   app.use('/accounts', accountsRouter);
   app.use('/accounts', accountsRouter);
   app.use('/cards', cardsRouter);
+  app.use('/chats', chatsRouter);
 
   app.use('/', (err: HttpError, req, res, next) => {
     // TODO check why omit returns empty object, even if message field exists in err object;
