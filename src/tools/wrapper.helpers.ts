@@ -35,13 +35,13 @@ export function wrapper(func: Function) {
   };
 }
 
-export const checkEntityId = <T extends typeof BaseEntity>(entity: T) => {
+export const checkEntityId = <T extends typeof BaseEntity>(entity: T, idField: string = 'id') => {
   return async (
     req: IEntityRequest<BaseEntity>,
     res: Response,
     next: Function
   ) => {
-    const id = req.params.id;
+    const id = req.params[idField];
 
     if (!id) {
       return res.status(400).send('Invalid item id provided');

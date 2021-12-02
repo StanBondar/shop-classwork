@@ -6,15 +6,18 @@ import { HttpError, wrapper } from '../../tools/wrapper.helpers';
 import { ItemEntity } from '../../db/entities/item.entity';
 import { ChatMembersEntity } from '../../db/entities/chat-member.entity';
 import { Not } from 'typeorm';
-import { UserEntity } from '../../db/entities/user.entity';
 import { ChatEntity } from '../../db/entities/chat.entity';
+import { UserRoleEnum } from '../../enums/user-role.enum';
 
 export const postPurchases = wrapper(async (req: IRequest, res: Response) => {
   const { itemId, count } = pick(req.body, 'itemId', 'count');
 
+  if(req.user.role === UserRoleEnum.SELLER) {
+    throw new HttpError('You can not use seller account to buy items. Please log in as customer', 401);
+  }
+
   const item = await ItemEntity.findOne(itemId);
   if (!item) {
-    // res.status(404).send('Invalid item chosen');
     throw new HttpError('Invalid item chosen', 404);
   }
   if (item.quantity < count) {
@@ -45,7 +48,11 @@ export const postPurchases = wrapper(async (req: IRequest, res: Response) => {
   }));
 
   const { sellerId } = (await purchase.item);
+
   const isChatExist = companions.some(chatMember => {
+    if(!chatMember) {
+      return false;
+    }
     return chatMember.userId === sellerId;
   })
 
@@ -62,9 +69,11 @@ export const postPurchases = wrapper(async (req: IRequest, res: Response) => {
 
     await chatMember1.save();
     await chatMember2.save();
+    return res.status(201).send(`Items has been purchased. Chat has been created and ou can contact with seller by chat id - ${chat.id}`);
   }
-  
-  res.status(201).send('Items has been purchased');
+
+  const {chatId} = companions[0];
+  return res.status(201).send(`Items has been purchased. You can contact with seller by chat id - ${chatId}`);
 });
 
 
