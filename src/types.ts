@@ -4,6 +4,7 @@ import { UserRoleEnum } from './enums/user-role.enum';
 import { BaseEntity } from 'typeorm';
 import { ItemEntity } from './db/entities/item.entity';
 import { Base } from './db/entities/base.entity';
+import { Socket } from 'socket.io';
 
 export interface IRequest extends Request {
   user: UserEntity;
@@ -36,3 +37,10 @@ export type TCard = {
   cvv: string; 
   expired: string;
 };
+
+export type TSocket = Socket&{handshake:{auth:{user:UserEntity}}};
+
+export type TMessage = {
+  data: string;
+  chatId: number;
+}

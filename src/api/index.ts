@@ -12,6 +12,7 @@ import path from 'path';
 import cardsRouter from './cards';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../../swag.json';
+import chatsRouter from './chats';
 
 export const registerRouters = (app: Express) => {
   app.use(json());
