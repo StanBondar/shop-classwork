@@ -5,6 +5,7 @@ import { BaseEntity } from 'typeorm';
 import { ItemEntity } from './db/entities/item.entity';
 import { Base } from './db/entities/base.entity';
 import { Socket } from 'socket.io';
+import { UserActionsEnum } from './enums/user-actions.enum';
 
 export interface IRequest extends Request {
   user: UserEntity;
@@ -43,4 +44,33 @@ export type TSocket = Socket&{handshake:{auth:{user:UserEntity}}};
 export type TMessage = {
   data: string;
   chatId: number;
+}
+
+export interface IChatPayload {
+  userId: number;
+
+  chatId: number;
+
+  messageId: number;
+
+  data: string;
+}
+
+export type TMessageBroadcast = {
+  data: string;
+  usersIds: number[];
+}
+
+export type TCreateMessagePayload = {
+  data: string;
+  chatId: number;
+  senderId: number;
+}
+
+export type TEditMessagePayload = Pick<IChatPayload, 'messageId' | 'data'>
+
+export type TCreateLogRecord<TPayload extends Base> = {
+  action: UserActionsEnum,
+  userId: number,
+  payload: TPayload 
 }

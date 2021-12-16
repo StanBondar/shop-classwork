@@ -11,7 +11,9 @@
     "outDir": "./dist",
     "types": ["node"],
     "incremental": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictPropertyInitialization": false
   },
   "exclude": ["node_modules", "dist"]
 }

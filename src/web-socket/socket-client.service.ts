@@ -1,4 +1,5 @@
 import { Socket } from "socket.io";
+import { ChatMembersEntity } from "../db/entities/chat-member.entity";
 import { ChatEntity } from "../db/entities/chat.entity"
 import { UserEntity } from "../db/entities/user.entity";
 import { SocketEventsEnum } from "./socket-events.enum";
@@ -8,14 +9,16 @@ export class WebSocketClientService {
 
   public static async emitEventToChat<T = any>(chatId:number, event:SocketEventsEnum, payload:T) {
     const chat = await ChatEntity.findOne(chatId);
+    if(chat){
     const chatMembers = await chat.chatMembers;
     chatMembers.forEach(member => {
-      const memberConnections = this.clients.get(member.userId) || [];
+        const memberConnections = this.clients.get(member.userId) || [];
 
-      memberConnections.forEach(connection => {
-        connection.emit(event, payload);
-      })
-    });
+        memberConnections.forEach(connection => {
+          connection.emit(event, payload);
+        })
+      });
+    }
   }
 
   public static registerUserConnection(client:Socket&{handshake:{auth:{user:UserEntity}}}) {
@@ -26,8 +29,23 @@ export class WebSocketClientService {
       this.clients.set(user.id, [client])
     }else {
      const connections = this.clients.get(user.id);
-     this.clients.set(user.id, [...connections, client]);
+     connections && this.clients.set(user.id, [...connections, client]);
     }
+  }
+
+  public static async emitEventToAllChats<T = any>(userIds: number[], event: SocketEventsEnum, payload: T, client:Socket&{handshake:{auth:{user:UserEntity}}}) {
+    // const chatsMembers = await Promise.all(userIds.map(id => ChatMembersEntity.find({where: {userId: id}})));
+    // chatsMembers.map(chatMember => {
+
+    // })
+    const user = client.handshake.auth.user;
+    const clientChatMembers = await ChatMembersEntity.find({where: {user}});
+    const filteredChatMembers = clientChatMembers.filter(member => {
+      return userIds.includes(member.id);
+    });
+    const chats = filteredChatMembers.map(member => {
+      this.emitEventToChat<T>(member.chatId, event, payload);
+    });
   }
 }
 

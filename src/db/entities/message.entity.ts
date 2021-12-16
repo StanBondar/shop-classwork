@@ -1,18 +1,19 @@
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { TCreateMessagePayload } from "../../types";
 import { Base } from "./base.entity";
 import { ChatEntity } from "./chat.entity";
 import { UserEntity } from "./user.entity";
 
 @Entity({name: 'messages'})
-export class MessageEntity extends Base {
+export class MessageEntity extends Base<TCreateMessagePayload> {
   @Column()
   public data: string;
 
   @Column()
-  public senderId: string
+  public senderId: number;
   
   @Column()
-  public chatId: string;
+  public chatId: number;
 
   @ManyToOne(() => ChatEntity)
   public chat: ChatEntity;

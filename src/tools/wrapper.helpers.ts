@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { assign } from 'lodash';
 import { BaseEntity } from 'typeorm';
 import { PurchaseStatusEnum } from '../enums/purchase-status.enum';
@@ -28,20 +28,19 @@ export class HttpValidationError extends HttpError {
 export function wrapper(func: Function) {
   return async function (req: Request, res: Response, next: Function) {
     try {
-      await func.apply(this, [req, res, next]);
+      await func.apply(null, [req, res, next]);
     } catch (err) {
       next(err);
     }
   };
 }
-
-export const checkEntityId = <T extends typeof BaseEntity>(entity: T) => {
-  return async (
+// TODO Nahuya
+export const checkEntityId = <T extends typeof BaseEntity>(entity: T, idField: string = 'id') => wrapper(async (
     req: IEntityRequest<BaseEntity>,
     res: Response,
-    next: Function
+    next: NextFunction
   ) => {
-    const id = req.params.id;
+    const id = req.params[idField];
 
     if (!id) {
       return res.status(400).send('Invalid item id provided');
@@ -57,8 +56,7 @@ export const checkEntityId = <T extends typeof BaseEntity>(entity: T) => {
 
     req.entity = findedEntity;
     next();
-  };
-};
+  });
 
 export class BaseRequest {
   constructor(data: BaseRequest) {
@@ -70,8 +68,9 @@ export class PatchPurchaseRequest extends BaseRequest {
   @IsEnum([PurchaseStatusEnum.CANCELLED, PurchaseStatusEnum.FULFILLED])
   status: PurchaseStatusEnum;
 }
+
 export const validationMiddleware = <T extends typeof BaseRequest>(entity: T) =>
-  wrapper(async (req: IRequest, res: Response, next) => {
+  wrapper(async (req: IRequest, res: Response, next: NextFunction) => {
     const body = req.body as unknown as T;
     const newEntity = new entity(body);
 

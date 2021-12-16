@@ -22,7 +22,7 @@ export const postCards = wrapper( async (req:IRequest, res:Response) => {
   
   try {
     await checkBalance(cardData);
-  }catch(err) {
+  }catch(err: any) {
     if(err?.response?.status === 404) {
       throw new HttpError('Invalid card data provided, please check card data or try another one.', 400);
     }
@@ -36,7 +36,7 @@ export const postCards = wrapper( async (req:IRequest, res:Response) => {
 
   try{
     await card.save();
-  }catch(err) {
+  }catch(err: any) {
     if(+err.code === 23505) {
       throw new HttpError('Your card has already been added, please try another one.', 400);
     }

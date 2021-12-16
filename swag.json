@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://example.com",
+      "url": "http://192.168.15.94:3030",
       "variables": {}
     }
   ],

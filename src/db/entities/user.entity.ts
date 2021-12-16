@@ -61,5 +61,5 @@ export class UserEntity extends Base {
       .createHash('sha256')
       .update(password, 'binary')
       .digest('base64');
-  }
+  }  
 }

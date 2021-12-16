@@ -9,5 +9,5 @@ export const createConfig = () => {
   config();
   EnvConfig.PORT = Number(process.env.PORT) || 3000;
   EnvConfig.SECRET_KEY = process.env.SECRET_KEY!;
-  EnvConfig.CARD_API_URL = process.env.CARD_API_URL;
+  EnvConfig.CARD_API_URL = process.env.CARD_API_URL || '';
 };
