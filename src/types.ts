@@ -67,7 +67,7 @@ export type TCreateMessagePayload = {
   senderId: number;
 }
 
-export type TEditMessagePayload = Pick<IChatPayload, 'messageId' | 'data'>
+export type TEditMessagePayload = Pick<IChatPayload, 'messageId' | 'userId'>
 
 export type TCreateLogRecord<TPayload extends Base> = {
   action: UserActionsEnum,

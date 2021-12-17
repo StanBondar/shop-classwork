@@ -10,6 +10,7 @@ import { registerSockets } from './web-socket';
 import path from 'path';
 import { LogRecordModel } from './db/models/log-record.model';
 import {getMongoRepository} from "typeorm";
+import { RefreshToken } from './db/entities/refresh-token.entity';
 
 createConfig();
 
@@ -21,7 +22,6 @@ app.get('/', async (req: Request, res: Response) => {
 
   res.send(`Im alive! ${EnvConfig.PORT}`);
 });
-
 
 app.get('/support', (req, res) => {
   res.sendFile(path.join(__dirname, 'markup', 'chat.html'))

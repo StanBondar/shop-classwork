@@ -5,7 +5,7 @@ import { Not } from 'typeorm';
 import { ChatMembersEntity } from '../db/entities/chat-member.entity';
 import { MessageEntity } from '../db/entities/message.entity';
 import { CChatService } from '../services/chat.service';
-import { IChatPayload, TMessage, TMessageBroadcast, TSocket } from '../types';
+import { IChatPayload, TEditMessagePayload, TMessage, TMessageBroadcast, TSocket } from '../types';
 import { authSocketMiddleware } from './auth';
 import { WebSocketClientService } from './socket-client.service';
 import { SocketEventsEnum } from './socket-events.enum';
@@ -75,14 +75,14 @@ export const registerSockets = (app: Express) => {
       }))
     })
 
-    client.on(SocketEventsEnum.EDIT_MESSAGE, async (payload: IChatPayload) => {
-      const isChatMember = await CChatService.isChatMember(payload.chatId, user.id);
+    client.on(SocketEventsEnum.EDIT_MESSAGE, async (payload: TEditMessagePayload) => {
+      const {userId, messageId} = payload;
+      const isChatMember = await CChatService.isMessageSender(messageId, userId);
       
       if(!isChatMember) {
         return;
       }
 
-      
     })
 
     client.on('disconnect', () => {

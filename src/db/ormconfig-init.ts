@@ -17,7 +17,7 @@ const init = async () => {
 
   const opt2 = {
     type: 'postgres',
-    name: 'postgres1',
+    name: 'default',
     url: process.env.DATABASE_URL,
     entities: [`${dir}/**/entities/*.entity{.ts,.js}`],
     migrations: [`${dir}/**/migrations/*{.ts,.js}`],
