@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { IRequest } from '../../types';
 import { PurchaseStatusEnum } from '../../enums/purchase-status.enum';
 
-export const getPurches = wrapper(async (req: IRequest, res: Response) => {
+export const getPurchases = wrapper(async (req: IRequest, res: Response) => {
   const { status } = req.query;
   const statuses = status ? [status] : Object.values(PurchaseStatusEnum);
 

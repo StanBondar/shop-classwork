@@ -1,10 +1,5 @@
-// export * as get from './get';
-// export * as patch from './patch';
-// export * as post from './post';
-// export * as put from './put';
-
 import { Router } from 'express';
-import { getPurches } from './get';
+import { getPurchases } from './get';
 import { postPurchases } from './post';
 import { patchPurchases } from './patch';
 import { PurchaseEntity } from '../../db/entities/purchase.entity';
@@ -17,7 +12,7 @@ import { PostPurchaseRequest } from './requests/post-purchase.request';
 
 const router = Router();
 
-router.get('/', getPurches);
+router.get('/', getPurchases);
 router.post('/', validationMiddleware(PostPurchaseRequest), postPurchases);
 router.patch(
   '/:id',

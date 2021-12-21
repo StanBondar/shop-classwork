@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "typeRoots": ["@types", "node_modules/@types"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "commonjs",
-    "declaration": false,
+    "declaration": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "target": "ES2017",
@@ -11,7 +12,9 @@
     "outDir": "./dist",
     "types": ["node"],
     "incremental": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
   },
   "exclude": ["node_modules", "dist"]
 }

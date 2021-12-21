@@ -1,15 +1,15 @@
 
   import {Response} from 'express';
-import { assign } from 'lodash';
 import { ChatEntity } from '../../db/entities/chat.entity';
 import { MessageEntity } from '../../db/entities/message.entity';
+import { CChatService } from '../../services/chat.service';
 import { HttpError, wrapper } from '../../tools/wrapper.helpers';
 import { IEntityRequest } from '../../types';
 
   export const postChatMessage = wrapper(async (req:IEntityRequest<ChatEntity>, res:Response) => {
     const chat = req.entity;
-    const chatMembers = await chat.chatMembers;
-    const isChatMember = chatMembers.some(chatMember => chatMember.userId === req.user.id)
+    const isChatMember = await CChatService.isChatMember(chat.id, req.user.id);
+
     if(!isChatMember) {
       throw new HttpError('You are not chat member', 401);
     }

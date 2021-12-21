@@ -25,7 +25,7 @@ export const depositToAccount = wrapper(async (req:IEntityRequest<CardEntity>, r
       accountBalance: user.balance,
       cardBalance: remainingBalance
     })
-  }catch(err) {
+  }catch(err: any) {
     throw new HttpError(err.response.data, err.response.status);
   }
 });
@@ -46,9 +46,8 @@ export const withdrawFromAccount = wrapper(async (req:IEntityRequest<CardEntity>
       message: `${sum} sent from your account to your card. Remaining account balance - ${user.balance}. New card balance - ${remainingBalance}`, 
       accountBalance: user.balance,
       cardBalance: remainingBalance
-    })
-    // return res.status(201).send(`${sum} sent from your account to your card. Remaining account balance - ${user.balance}. New card balance - ${remainingBalance}`)
-  }catch(err) {
+    });
+  }catch(err: any) {
     throw new HttpError(err.response.data, err.response.status);
   }
 });

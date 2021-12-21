@@ -2,8 +2,8 @@ import { assign, keys, pick } from "lodash";
 import { CardEntity } from "../../../db/entities/card.entity";
 
 export class CardResponse {
-  number: string = undefined;
-  id: number = undefined;
+  number: string | undefined = undefined;
+  id: number | undefined = undefined;
 
   constructor(data?: CardEntity) {
     if(data) {

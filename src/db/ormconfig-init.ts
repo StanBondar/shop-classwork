@@ -9,7 +9,15 @@ const init = async () => {
   const dir = process.env.ENV === 'DEV' ? 'src' : 'dist/src';
 
   const opt = {
+    name: 'mongodb1',
+    type: 'mongodb',
+    url: process.env.MONGO_URL,
+    entities: [`${dir}/**/models/*.model{.ts,.js}`]
+  };
+
+  const opt2 = {
     type: 'postgres',
+    name: 'default',
     url: process.env.DATABASE_URL,
     entities: [`${dir}/**/entities/*.entity{.ts,.js}`],
     migrations: [`${dir}/**/migrations/*{.ts,.js}`],
@@ -17,14 +25,11 @@ const init = async () => {
       migrationsDir: `${dir}/db/migrations`
     },
     synchronize: true
-    // ssl: {
-    //   rejectUnauthorized: false
-    // }
   };
-
+  
   await promises.writeFile(
     path.join(__dirname, '../../ormconfig.json'),
-    JSON.stringify(opt, null, 4)
+    JSON.stringify([opt, opt2], null, 4)
   );
 };
 

@@ -17,5 +17,4 @@ router.post('/:id/messages', checkEntityId(ChatEntity), validationMiddleware(Pos
 router.delete('/:id/messages/:messageId', checkEntityId(MessageEntity, 'messageId'), deleteChats);
 
 
-export default router; 
-  
+export default router;

@@ -4,11 +4,15 @@ import express, { Request, Response } from 'express';
 
 import { registerRouters } from './api';
 import { createConfig, EnvConfig } from './config';
-import { createConnection } from 'typeorm';
+import { createConnections } from 'typeorm';
+import cors from 'cors';
+import { registerSockets } from './web-socket';
+import path from 'path';
 
 createConfig();
 
 const app = express();
+app.use(cors());
 
 app.get('/', async (req: Request, res: Response) => {
   console.log(req.url);
@@ -16,13 +20,18 @@ app.get('/', async (req: Request, res: Response) => {
   res.send(`Im alive! ${EnvConfig.PORT}`);
 });
 
-registerRouters(app);
+app.get('/support', (req, res) => {
+  res.sendFile(path.join(__dirname, 'markup', 'chat.html'))
+});
 
-createConnection().then(() =>
-  app.listen(EnvConfig.PORT, () =>
+createConnections().then(async () => {
+  registerRouters(app)
+  
+  const server = registerSockets(app);
+  server.listen(EnvConfig.PORT, () =>
     console.log(`Started on port ${EnvConfig.PORT}`)
   )
-).catch(err => {
+}).catch(err => {
   console.log('Connection error occured');
   console.log(err);
 });
