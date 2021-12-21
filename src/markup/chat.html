@@ -63,8 +63,6 @@
 
       socket.on('connect', () => {
         console.log('connected');
-        // socket.emit('login',{login:'dsfddfs',password:'wwwww'})
-        // socket.emit('test',{});
         socket.on('test_connection', (message) => {
           console.log(message);
         });
@@ -84,9 +82,6 @@
       }).then((res) => res.json());
 
       console.log(chats);
-
-      // const user = await whoami.json();
-      // console.log(user);
     });
   </script>
 </body>

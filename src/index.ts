@@ -8,9 +8,6 @@ import { createConnections } from 'typeorm';
 import cors from 'cors';
 import { registerSockets } from './web-socket';
 import path from 'path';
-import { LogRecordModel } from './db/models/log-record.model';
-import {getMongoRepository} from "typeorm";
-import { RefreshToken } from './db/entities/refresh-token.entity';
 
 createConfig();
 
@@ -29,9 +26,6 @@ app.get('/support', (req, res) => {
 
 createConnections().then(async () => {
   registerRouters(app)
-  // const repo = getMongoRepository(LogRecordModel);
-  // const test = await repo.insertOne({});
-  // console.log(test);
   
   const server = registerSockets(app);
   server.listen(EnvConfig.PORT, () =>

@@ -1,24 +1,16 @@
+import { ChatMembersEntity } from "../db/entities/chat-member.entity";
 import { ChatEntity } from "../db/entities/chat.entity";
 import { MessageEntity } from "../db/entities/message.entity";
 import { TCreateMessagePayload } from "../types";
 
 export class CChatService {
   public static async isChatMember(chatId: number, userId: number) {
-    const chat = await ChatEntity.findOne(chatId);
-    if(chat){
-      const chatMembers = await chat.chatMembers;
-      const isChatMember = chatMembers.some(chatMember => chatMember.userId === userId)
-      return isChatMember;
-    }
-    return false;
+    const isChatMember = await ChatMembersEntity.findOne({chatId, userId});
+    return !!isChatMember;
   }
 
   public static async createMessage(payload: TCreateMessagePayload) {
-    // const {chatId, data, senderId} = payload;
     const message = new MessageEntity(payload);
-    // message.chatId = chatId;
-    // message.data = data;
-    // message.senderId = senderId;
     await message.save();
     return message;
   }

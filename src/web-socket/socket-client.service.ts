@@ -2,6 +2,7 @@ import { Socket } from "socket.io";
 import { ChatMembersEntity } from "../db/entities/chat-member.entity";
 import { ChatEntity } from "../db/entities/chat.entity"
 import { UserEntity } from "../db/entities/user.entity";
+import { TSocket } from "../types";
 import { SocketEventsEnum } from "./socket-events.enum";
 
 export class WebSocketClientService {
@@ -21,7 +22,7 @@ export class WebSocketClientService {
     }
   }
 
-  public static registerUserConnection(client:Socket&{handshake:{auth:{user:UserEntity}}}) {
+  public static registerUserConnection(client:TSocket) {
     const user = client.handshake.auth.user;
     const isUserConnected = this.clients.has(user.id);
 
@@ -34,10 +35,6 @@ export class WebSocketClientService {
   }
 
   public static async emitEventToAllChats<T = any>(userIds: number[], event: SocketEventsEnum, payload: T, client:Socket&{handshake:{auth:{user:UserEntity}}}) {
-    // const chatsMembers = await Promise.all(userIds.map(id => ChatMembersEntity.find({where: {userId: id}})));
-    // chatsMembers.map(chatMember => {
-
-    // })
     const user = client.handshake.auth.user;
     const clientChatMembers = await ChatMembersEntity.find({where: {user}});
     const filteredChatMembers = clientChatMembers.filter(member => {
@@ -48,4 +45,3 @@ export class WebSocketClientService {
     });
   }
 }
-

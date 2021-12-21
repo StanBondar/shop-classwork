@@ -19,9 +19,7 @@ const varA: a = BaseEntity;
 
 const varB: b = new ItemEntity();
 
-export interface IEntityRequest<T extends BaseEntity> extends Request {
-  user: UserEntity;
-
+export interface IEntityRequest<T extends BaseEntity> extends IRequest {
   entity: T;
 }
 
@@ -39,7 +37,7 @@ export type TCard = {
   expired: string;
 };
 
-export type TSocket = Socket&{handshake:{auth:{user:UserEntity}}};
+export type TSocket = Socket&{data:{user?:UserEntity}};
 
 export type TMessage = {
   data: string;

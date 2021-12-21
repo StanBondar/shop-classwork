@@ -28,7 +28,6 @@ export const registerRouters = (app: Express) => {
       await file.mv(filesPath + file.name);
       return res.send('Success');
     }
-    // return res.download(filesPath + '1.jpg');
   });
 
   app.get('/download/:fileName', async (req, res) => {

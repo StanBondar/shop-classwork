@@ -25,9 +25,6 @@ const init = async () => {
       migrationsDir: `${dir}/db/migrations`
     },
     synchronize: true
-    // ssl: {
-    //   rejectUnauthorized: false
-    // }
   };
   
   await promises.writeFile(

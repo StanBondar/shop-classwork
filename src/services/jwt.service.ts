@@ -18,13 +18,13 @@ class JwtService {
   }
 
   async createTokenPair(data: JwtPayload | UserEntity) {
-    const access_token = this.encode(data, EnvConfig.ACCESS_TOKEN_EXP);
+    const accessToken = this.encode(data, EnvConfig.ACCESS_TOKEN_EXP);
 
-    const refresh_token = this.encode(data, EnvConfig.REFRESH_TOKEN_EXP);
+    const refreshToken = this.encode(data, EnvConfig.REFRESH_TOKEN_EXP);
     
     return {
-      access_token,
-      refresh_token
+      accessToken,
+      refreshToken
     }
   }
 }

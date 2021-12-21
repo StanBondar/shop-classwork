@@ -18,7 +18,6 @@ export class HttpError extends Error {
     this.statusCode = statusCode;
   }
 }
-
 export class HttpValidationError extends HttpError {
   constructor(public errors: ValidationError[]) {
     super('Validation error', 400);
@@ -49,7 +48,6 @@ export const checkEntityId = <T extends typeof BaseEntity>(entity: T, idField: s
     const findedEntity = await entity.findOne(id);
 
     if (!findedEntity) {
-      // return new HttpError("Invalid item id provided", 404);
       // TODO create wrapper for middleware and cover it
       return res.status(404).send('Invalid item id provided');
     }

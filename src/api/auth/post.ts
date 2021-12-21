@@ -33,7 +33,6 @@ export const login = async (req: Request, res: Response) => {
     return res.status(400).send('I dont know you bro');
   }
   const tokenPair = await JwtService.createTokenPair(user);
-  // const token = JwtService.encode(user);
   return res.send(tokenPair);
 };
 
